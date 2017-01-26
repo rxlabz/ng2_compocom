@@ -1,10 +1,14 @@
-<p>
-  Nom : {{nom}}
+<div>
+  <p>Nom injecté par le composant parent : {{nom}}</p>
 
-  <input #chp type="text"/>
+  <div>
+    <input #chpText type="text"/>
+    <button (click)="onTextData(chpText.value)">Envoi texte</button>
+  </div>
 
+  <div>
+    <input #chpMsg type="text"/>
+    <button (click)="onMessageData(chpMsg.value)">Envoi Message</button>
+  </div>
 
-  <button (click)="onData(chp.value)">Send</button>
-
-
-</p>
+</div>

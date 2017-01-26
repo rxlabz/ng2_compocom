@@ -1,23 +1,40 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ElementRef, ViewChild} from '@angular/core';
+import {Msg} from '../model';
 
 @Component({
   selector: 'app-compo-enfant',
   templateUrl: './compo-enfant.component.html',
   styleUrls: ['./compo-enfant.component.css']
 })
-export class CompoEnfantComponent implements OnInit {
+export class CompoEnfantComponent {
 
-  @Input() nom:String;
+  @Input() nom: string;
 
-  @Output() onNewData:EventEmitter<string> = new EventEmitter<string>();
+  @Output() onNewString: EventEmitter<string> = new EventEmitter<string>();
+  @Output() onNewMsg: EventEmitter<Msg> = new EventEmitter<Msg>();
 
-  constructor() { }
+  /**
+   * cette annotation permet de récupérer et
+   * d'utiliser une référence d'un sous element DOM d'un composant
+   * cf. #chp ds le template
+   */
+  @ViewChild('chpText') chpText: ElementRef;
 
-  ngOnInit() {
+  @ViewChild('chpMsg') chpMsg: ElementRef;
+
+  constructor() {
   }
 
-  onData(msg:string){
-    this.onNewData.next(msg);
+  onTextData(text: string) {
+    this.onNewString.next(text);
+    // on vide le chp après réception
+    this.chpText.nativeElement.value = '';
   }
 
+  onMessageData(text: string) {
+    this.onNewMsg.next(new Msg(text, this.nom, new Date()));
+    // on vide le chp après réception
+    this.chpMsg.nativeElement.value = '';
+  }
 }
+

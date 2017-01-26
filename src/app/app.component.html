@@ -3,5 +3,18 @@
 </h1>
 
 <app-compo-enfant [nom]="nom"
-  (onNewData)="onNewData($event)"
+                  (onNewString)="onNewText($event)"
+                  (onNewMsg)="onNewMsg($event)"
 ></app-compo-enfant>
+
+<div class="box">
+  <p><strong>Textes envoyés par composant-enfant</strong></p>
+  <p *ngFor="let msg of childTexts">{{msg}}</p>
+</div>
+
+<hr>
+
+<div class="box">
+  <p><strong>Messages envoyés par composant-enfant</strong></p>
+  <p *ngFor="let msg of childMessages">[{{msg.date | date}}] {{msg.userName}} dit : {{msg.message}}</p>
+</div>

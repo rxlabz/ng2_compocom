@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {CompoEnfantComponent} from "./compo-enfant/compo-enfant.component";
+import {Component} from '@angular/core';
+import {Msg} from './model';
 
 @Component({
   selector: 'app-root',
@@ -7,12 +7,21 @@ import {CompoEnfantComponent} from "./compo-enfant/compo-enfant.component";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  title = 'Communication Composants Client-parent';
 
-  nom:String = "toto";
+  nom: string = 'Bob';
 
-  onNewData(msg:String){
-    console.log('msg:',msg);
+  childTexts: string[] = [];
+  childMessages: Msg[] = [];
+
+  onNewText(text: string) {
+    console.log('msg:', text);
+    this.childTexts.push(text);
+  }
+
+  onNewMsg(msg: Msg) {
+    console.log('msg:', msg);
+    this.childMessages.push(msg);
   }
 
 }
