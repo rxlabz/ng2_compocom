@@ -2,10 +2,10 @@
   {{title}}
 </h1>
 
-<app-compo-enfant [nom]="nom"
+<compo-enfant [nom]="nom"
                   (onNewString)="onNewText($event)"
                   (onNewMsg)="onNewMsg($event)"
-></app-compo-enfant>
+></compo-enfant>
 
 <div class="box">
   <p><strong>Textes envoyés par composant-enfant</strong></p>

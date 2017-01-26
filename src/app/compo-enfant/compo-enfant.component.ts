@@ -2,7 +2,7 @@ import {Component, Input, Output, EventEmitter, ElementRef, ViewChild} from '@an
 import {Msg} from '../model';
 
 @Component({
-  selector: 'app-compo-enfant',
+  selector: 'compo-enfant',
   templateUrl: './compo-enfant.component.html',
   styleUrls: ['./compo-enfant.component.css']
 })
@@ -11,6 +11,7 @@ export class CompoEnfantComponent {
   @Input() nom: string;
 
   @Output() onNewString: EventEmitter<string> = new EventEmitter<string>();
+
   @Output() onNewMsg: EventEmitter<Msg> = new EventEmitter<Msg>();
 
   /**

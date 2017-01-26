@@ -1,31 +1,72 @@
-# CompoCommunication
+# Communication entre composants parent-enfant
+
+## @Input
+
+- parent -> enfant : @Input()
+
+Définition d'une proprieté publique ou d'un setter(/getter) annotée `@Input()`
+
+```typescript
+@Component({
+  selector: 'app-compo-enfant',/* ... */
+})
+export class CompoEnfantComponent {
+  @Input() nom: string;
+}
+```
+
+Les propriétés @Input peuvent être renseigné via l'attribut du même nom dans le template html du composant parent.
+
+```html
+<compo-enfant [nom]="nom" ></compo-enfant>
+```
+
+
+## @Output
+
+- enfant -> parent : @Output()
+
+Pour communiquer avec on parent, un composant peut utiliser des EventEmitter.
+Les EventEmitters sont en fait des "sujets observables" : 
+c'est un tuyau, ou plutôt un flux, que l'élement enfant expose pour envoyer des informations.
+
+Les EventEmitters sont [génériques](), chacun doit donc typer les "events" qu'il emettra.
+Il ne s'agit pas là d'évenements DOM, en fait, il s'agit tout simplement d'une donnée que l'on souhaite transmetre. 
+
+```typescript
+@Output() onNewString: EventEmitter<string> = new EventEmitter<string>();
+```
+Pour envoyer des données, aka ajouter des informations aux flux, un eventEmitter<T> expose une méthode next(param:T).
+
+```typescript
+//..
+this.onNewString.next(text);
+```
+
+Pour se brancher aux flux, on ajoute un écouteur `(evenement)` dans le template parent.
+Le handler de cet évenement a accès aux données envoyés via `$event`.  
+
+```html
+<compo-enfant (onNewString)="onNewText($event)"
+                  (onNewMsg)="onNewMsg($event)"
+></compo-enfant>
+```
+
+## Extras
+
+### pipe
+
+```typescript
+{{msg.date | date}}
+```
+
+
+## Installation
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.16.
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+npm install
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Deploying to Github Pages
-
-Run `ng github-pages:deploy` to deploy to Github Pages.
-
-## Further help
-
-To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+ng serve
+```
